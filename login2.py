@@ -1,4 +1,4 @@
-{#
+{
     <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
