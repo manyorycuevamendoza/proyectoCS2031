@@ -19,19 +19,16 @@ def register():
         #creando el usuario
         try:
             user = NewUser.query.filter(NewUser.username == username).first()
-            if user != None:
-                return "Usuario ya registrado"
-
             email = NewUser.query.filter(NewUser.email == email).first()
-            if email != None:
-                return "Email ya registrado"
-            else:
-                pass
-            user = NewUser(username=username, password=password, email=email)
-            db.session.add(user)
-            db.session.commit()
-            return redirect("/register?username="+username+"&password="+password+"&email="+email)
         except Exception as err:
             print(err)
             return "Error while creating user. Try again."
+        if user !=None or email !=None:
+            return "User or email already exists"
+
+        newuser = NewUser(username=username, password=password, email=email)
+        db.session.add(newuser)
+        db.session.commit()
+        return redirect("/login")
     return render_template("register.html")
+    
