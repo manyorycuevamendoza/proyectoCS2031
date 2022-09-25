@@ -12,21 +12,21 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
         email= request.form["email"]
-        if not username or not password or not email:
+        if username==None or username=="" or password==None or password=="" or email==None or email=="":
             return "Missing form parameter username or password or email"
         #verificando si el usuario y el email ya existen
-        user = NewUser.query.filter(NewUser.username == username).first()
-        if user != None:
-            return "Usuario ya registrado"
-
-        email = NewUser.query.filter(NewUser.email == email).first()
-        if email != None:
-            return "Email ya registrado"
-        else:
-            pass
 
         #creando el usuario
         try:
+            user = NewUser.query.filter(NewUser.username == username).first()
+            if user != None:
+                return "Usuario ya registrado"
+
+            email = NewUser.query.filter(NewUser.email == email).first()
+            if email != None:
+                return "Email ya registrado"
+            else:
+                pass
             user = NewUser(username=username, password=password, email=email)
             db.session.add(user)
             db.session.commit()
