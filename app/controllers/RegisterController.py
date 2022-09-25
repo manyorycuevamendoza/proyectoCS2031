@@ -30,8 +30,8 @@ def register():
         try: 
             db.session.add(newuser)
             db.session.commit()
-            return redirect("login.html")
         except Exception as err:
             print(err)
             return "Error while creating user. Try again."
+        return redirect("/login.html")
     return render_template("register.html")
