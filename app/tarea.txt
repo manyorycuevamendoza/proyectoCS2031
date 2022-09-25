@@ -1,2 +1,4 @@
-Crear una nueva página ‘/register’ que muestre un form que permita a un usuario ingresar un 
-nombre, contraseña y email para registrar un nuevo usuario en la base de datos
+Crear una nueva página ‘/register’ que 
+muestre un form que permita a un usuario ingresar un 
+nombre, contraseña y email para registrar un nuevo 
+usuario en la base de datos

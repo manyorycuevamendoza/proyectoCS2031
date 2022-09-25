@@ -28,29 +28,3 @@ def login():
     return render_template("login.html")
 
 
-#registrando usuarios
-def register():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        email= request.form["email"]
-
-        #verificando si el usuario y el email ya existen
-        user = NewUser.query.filter(NewUser.username == username).first()
-        if user != None:
-            return "Usuario ya registrado"
-
-        email = NewUser.query.filter(NewUser.email == email).first()
-        if email != None:
-            return "Email ya registrado"
-
-        #creando el usuario
-        try:
-            user = NewUser(username=username, password=password, email=email)
-            db.session.add(user)
-            db.session.commit()
-            return redirect("/login")
-        except Exception as err:
-            print(err)
-            return "Error while creating user. Try again."
-    return render_template("register.html")
