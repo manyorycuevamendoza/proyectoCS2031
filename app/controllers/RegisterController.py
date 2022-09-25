@@ -33,5 +33,5 @@ def register():
         except Exception as err:
             print(err)
             return "Error while creating user. Try again."
-        return redirect("/login.html")
+        return redirect("/login")
     return render_template("register.html")
