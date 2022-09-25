@@ -27,8 +27,11 @@ def register():
             return "User or email already exists"
 
         newuser = NewUser(username=username, password=password, email=email)
-        db.session.add(newuser)
-        db.session.commit()
-        return redirect("/login")
+        try: 
+            db.session.add(newuser)
+            db.session.commit()
+            return redirect("login.html")
+        except Exception as err:
+            print(err)
+            return "Error while creating user. Try again."
     return render_template("register.html")
-    
