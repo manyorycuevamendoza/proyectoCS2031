@@ -43,5 +43,31 @@ def delete():
         return redirect("/index")
     return render_template("delete.html")
 
+def update():
+    if request.method=='POST':
+        username=request.form['username']
+        password=request.form['password']
+        email=request.form['email']
+        newusername=request.form['newusername']
+        if not username and not password and not email:
+            return "Missing username or password or email"
+        user =NewUser.query.filter(NewUser.username==newusername).first()
+        if user==None:
+            return "Invalid username"
+        
+        if username:
+            user.username=username
+        if password:
+            user.password=password
+        if email:
+            user.email=email
+        try:
+            db.session.commit()
+        except Exception as err:
+            print("Error inesperado",err)
+            return "Invalid new parameters"
+        return redirect("/profile?username="+user.username+"&password="+user.password+"&email="+user.email)
+    return render_template('update.html')
+
 
 

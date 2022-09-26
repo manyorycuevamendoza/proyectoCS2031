@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+
+{%block content%}
+<h2>actualiza tus datos </h2>
+<form method="post">
+    <label for="newusername">nombre de usuario: </label>
+    <input name="newusername" id="newusername">
+    <br>
+    <label for="username">Nuevo nombre de usuario: </label>
+    <input name="username" id="username" >
+
+    <label for="password">Contraseña: </label>
+    <input name="password" type="password" id="password"> 
+
+    <label for="email">Email: </label>
+    <input name="email" type="email" id="email">
+    
+    <input type="submit" value="Registrar usuario">
+</form>
+{%endblock%}
