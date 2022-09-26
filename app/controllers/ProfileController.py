@@ -1,3 +1,4 @@
+import email
 from app import app
 import re
 from flask import render_template, request, redirect, flash
@@ -10,7 +11,8 @@ def profile():
     user = request.args
     username = user.get("username")
     password = user.get("password")
-    return render_template("profile.html", username=username, password=password)
+    email=user.get("email")
+    return render_template("profile.html", username=username, password=password, email=email)
 
 """que muestre un form que le pida al usuario ingresar 
 su nombre y contraseña y le permita borrar toda
@@ -58,7 +60,7 @@ def update():
         except Exception as err:
             print("Error inesperado",err)
             return "Invalid new parameters"
-        return redirect("/index")
+        return redirect("/profile?username="+username+"&password="+password+"&email="+email)
     return render_template('update.html')
 
 
