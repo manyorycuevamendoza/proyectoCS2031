@@ -23,25 +23,17 @@ def delete():
 
         if username==None or username=="" or password==None or password=="":
             return "Missing form parameter username or password"
-
-        #verificando si usuario y password existen
+        Usuario=NewUser.query.filter(NewUser.username==username).first()
+        if Usuario==None or Usuario.password!=password:
+            return "Invalid username or password"
         try:
-            newuser = NewUser.query.filter(NewUser.username == username).first()
-            newpassword = NewUser.query.filter(NewUser.password == password).first()
+            db.session.delete(Usuario)
+            db.session.commit()
         except Exception as err:
-            print(err)
-            return "Error while creating user. Try again."
-        if newuser ==None or newpassword ==None:
-            return "User or password does not exist"
-        
-        #teniendo los datos del usuario, se borra
-        all_user=NewUser.query.all()
-        for user in all_user:
-            if user.username==username and user.password==password:
-                db.session.delete(user)
-                db.session.commit()
+            print("Error inesperado",err)
+            return "Error while deleting user. Try again."
         return redirect("/index")
-    return render_template("delete.html")
+    return render_template('delete.html')
 
 def update():
     if request.method=='POST':
@@ -66,7 +58,7 @@ def update():
         except Exception as err:
             print("Error inesperado",err)
             return "Invalid new parameters"
-        return redirect("/profile?username="+user.username+"&password="+user.password+"&email="+user.email)
+        return redirect("/index")
     return render_template('update.html')
 
 
